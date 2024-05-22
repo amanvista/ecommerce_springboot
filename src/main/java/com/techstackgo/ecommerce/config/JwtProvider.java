@@ -6,6 +6,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtProvider {
@@ -13,14 +15,14 @@ public class JwtProvider {
     private final String SECRET_KEY = "your_secret_key";
 
     public String generateToken(String username) {
-        return Jwts.builder()
+        Map<String,Object> claims = new HashMap<>();
+        return Jwts.builder().setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
-
     public Claims extractClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
@@ -31,5 +33,8 @@ public class JwtProvider {
     public boolean validateToken(String token, String username) {
         Claims claims = extractClaims(token);
         return claims.getSubject().equals(username) && !claims.getExpiration().before(new Date());
+    }
+    public String getEmailFromToken(String jwt){
+        return "aman@gmail.com";
     }
 }

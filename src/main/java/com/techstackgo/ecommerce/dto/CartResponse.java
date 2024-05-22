@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AuthResponse {
-   // private String jwt;
-    private String message;
+public class CartResponse {
+    String message;
+    Boolean status;
 }

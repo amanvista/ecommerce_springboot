@@ -1,0 +1,119 @@
+User:
+- user_id (PK)
+- username
+- email
+- password
+- ...
+
+Address:
+- address_id (PK)
+- user_id (FK)
+- street_address
+- city
+- state
+- country
+- postal_code
+- ...
+
+Cart:
+- cart_id (PK)
+- user_id (FK)
+- ...
+
+CartItem:
+- cart_item_id (PK)
+- cart_id (FK)
+- product_id (FK)
+- quantity
+- ...
+
+Category:
+- category_id (PK)
+- name
+- ...
+
+Order:
+- order_id (PK)
+- user_id (FK)
+- order_date
+- total_amount
+- status
+- ...
+
+OrderItem:
+- order_item_id (PK)
+- order_id (FK)
+- product_id (FK)
+- quantity
+- ...
+
+PaymentDetails:
+- payment_details_id (PK)
+- user_id (FK)
+- card_number
+- expiry_date
+- cvv
+- ...
+
+PaymentInformation:
+- payment_information_id (PK)
+- order_id (FK)
+- payment_method
+- payment_amount
+- payment_date
+- ...
+
+Product:
+- product_id (PK)
+- name
+- description
+- price
+- category_id (FK)
+- ...
+
+Rating:
+- rating_id (PK)
+- user_id (FK)
+- product_id (FK)
+- rating_value
+- ...
+
+Review:
+- review_id (PK)
+- user_id (FK)
+- product_id (FK)
+- review_text
+- ...
+
+Size:
+- size_id (PK)
+- product_id (FK)
+- size_name
+- ...
+
+User:
+- user_id (PK)
+- username
+- email
+- password
+- ...
+
+A User can have multiple Addresses (one-to-many).
+A User can have one Cart, and a Cart belongs to one User (one-to-one).
+A Cart can have multiple CartItems, and a CartItem belongs to one Cart (one-to-many).
+A Product can belong to one Category, and a Category can have multiple Products (one-to-many).
+An Order belongs to one User, and a User can have multiple Orders (one-to-many).
+An Order can have multiple OrderItems, and an OrderItem belongs to one Order (one-to-many).
+PaymentDetails belong to one User, and a User can have multiple PaymentDetails (one-to-many).
+PaymentInformation belongs to one Order, and an Order can have one PaymentInformation (one-to-one).
+A Product can have multiple Ratings, and a Rating belongs to one Product (one-to-many).
+A Product can have multiple Reviews, and a Review belongs to one Product (one-to-many).
+A Product can have multiple Sizes, and a Size belongs to one Product (one-to-many).
+
+
+User Service: Handles user-related operations such as user authentication, registration, profile management, and address management.
+Cart Service: Manages shopping cart functionalities like adding/removing items from the cart, updating quantities, and retrieving cart information.
+Order Service: Responsible for order management, including placing orders, order history, order status updates, and order details.
+Payment Service: Handles payment processing, including payment method management, payment validation, and processing payments.
+Product Service: Manages product-related operations such as product catalog management, product information retrieval, and product search functionalities.
+Review Service: Manages product reviews and ratings, including adding, retrieving, and managing reviews/ratings for products.

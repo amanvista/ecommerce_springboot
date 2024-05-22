@@ -3,12 +3,17 @@ package com.techstackgo.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Getter
+@Setter
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
