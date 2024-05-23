@@ -1,5 +1,7 @@
 package com.techstackgo.ecommerce.model;
 
+import com.techstackgo.ecommerce.domain.PaymentStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +20,7 @@ public class PaymentDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String status;
+    private PaymentStatus status;
     private String paymentId;
     private String razorpayPaymentlink;
     private String razorpayPaymentLinkReferenceId;

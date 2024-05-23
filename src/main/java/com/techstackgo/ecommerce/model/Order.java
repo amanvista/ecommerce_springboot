@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techstackgo.ecommerce.domain.OrderStatus;
+
 @Entity
 @Getter
 @Setter
@@ -17,13 +19,12 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name="order_id")
+    @Column(name = "order_id")
     private String orderId;
     @ManyToOne
     private User user;
-//    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-//    private List<OrderItem> orderItems = new ArrayList<>();
-
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate;
     @OneToOne
@@ -33,7 +34,7 @@ public class Order {
     private double totalPrice;
     private Integer totalDiscountedPrice;
     private Integer discount;
-    private String orderStatus;
+    private OrderStatus orderStatus;
     private int totalItem;
     private LocalDateTime createdAt;
 }
