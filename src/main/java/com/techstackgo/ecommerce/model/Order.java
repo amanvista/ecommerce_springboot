@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ public class Order {
     private User user;
 //    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
 //    private List<OrderItem> orderItems = new ArrayList<>();
-
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate;
     @OneToOne

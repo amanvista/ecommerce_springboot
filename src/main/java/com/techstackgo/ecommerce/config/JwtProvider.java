@@ -15,7 +15,7 @@ public class JwtProvider {
     private final String SECRET_KEY = "your_secret_key";
 
     public String generateToken(String username) {
-        Map<String,Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>();
         return Jwts.builder().setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -23,6 +23,7 @@ public class JwtProvider {
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
+
     public Claims extractClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
@@ -34,7 +35,17 @@ public class JwtProvider {
         Claims claims = extractClaims(token);
         return claims.getSubject().equals(username) && !claims.getExpiration().before(new Date());
     }
-    public String getEmailFromToken(String jwt){
+
+    public String getEmailFromToken(String jwt) {
         return "aman@gmail.com";
+    }
+
+    public String getUserNameFromJwtToken(String token) {
+        String username = Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+        return username;
     }
 }
