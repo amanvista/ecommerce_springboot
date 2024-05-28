@@ -14,27 +14,29 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CartItemServiceImplementation implements CartItemService{
+public class CartItemServiceImplementation implements CartItemService {
     @Autowired
     private CartItemRepository cartItemRepository;
     @Autowired
     private UserService userService;
     @Autowired
     private CartRepository cartRepository;
+
     @Override
     public CartItem createCartItem(CartItem cartItem) {
         cartItem.setQuantity(1);
-        cartItem.setPrice(cartItem.getProduct().getPrice()*cartItem.getQuantity());
-        cartItem.setDiscountedPrice(cartItem.getProduct().getDiscountedPrice()*cartItem.getQuantity());
+        cartItem.setPrice(cartItem.getProduct().getPrice() * cartItem.getQuantity());
+        cartItem.setDiscountedPrice(cartItem.getProduct().getDiscountedPrice() * cartItem.getQuantity());
         CartItem createdCartItem = cartItemRepository.save(cartItem);
         return createdCartItem;
     }
 
     @Override
-    public CartItem updateCartItem(Long userId, Long id, CartItem updatedCartItem) throws CartItemException, UserException {
+    public CartItem updateCartItem(Long userId, Long id, CartItem updatedCartItem)
+            throws CartItemException, UserException {
         CartItem item = findCartItemById(id);
         User user = userService.findUserById(item.getUserId());
-        if(user.getId().equals(userId)){
+        if (user.getId().equals(userId)) {
             item.setQuantity(updatedCartItem.getQuantity());
         }
         return cartItemRepository.save(item);
@@ -42,7 +44,7 @@ public class CartItemServiceImplementation implements CartItemService{
 
     @Override
     public CartItem isCartItemExist(Cart cart, Product product, Long userId) {
-        CartItem cartItem = cartItemRepository.isCartItemExist(cart,product,userId);
+        CartItem cartItem = cartItemRepository.isCartItemExist(cart, product, userId);
         return cartItem;
     }
 
@@ -51,10 +53,9 @@ public class CartItemServiceImplementation implements CartItemService{
         CartItem cartItem = findCartItemById(cartItemId);
         User user = userService.findUserById(cartItem.getUserId());
         User reqUser = userService.findUserById(userId);
-        if(user.getId().equals(reqUser.getId())){
+        if (user.getId().equals(reqUser.getId())) {
             cartItemRepository.deleteById(cartItemId);
-        }
-        else{
+        } else {
             throw new UserException("You can't remove another user Item");
         }
     }
@@ -62,9 +63,9 @@ public class CartItemServiceImplementation implements CartItemService{
     @Override
     public CartItem findCartItemById(Long cartItemId) throws CartItemException {
         Optional<CartItem> opt = cartItemRepository.findById(cartItemId);
-        if(opt.isPresent()){
+        if (opt.isPresent()) {
             return opt.get();
         }
-        throw new CartItemException("Cart Item not found with id"+cartItemId);
+        throw new CartItemException("Cart Item not found with id" + cartItemId);
     }
 }

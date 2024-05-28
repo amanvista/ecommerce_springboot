@@ -35,7 +35,7 @@ public class OrderServiceImplementation implements OrderService {
         }
         Order createdOrder = new Order();
         createdOrder.setUser(user);
-        createdOrder.setOrderItems(orderItems);
+        // createdOrder.setOrderItems(orderItems);
         createdOrder.setTotalPrice(cart.getTotalPrice());
         createdOrder.setTotalItem(cart.getTotalItem());
         createdOrder.setShippingAddress(address);

@@ -43,8 +43,7 @@ public class DataLoader implements CommandLineRunner {
         user.setLastName("Bisht");
         user.setMobile("723932423423");
         user.setRole("ADMIN");
-        user.setCreatedAt(LocalDateTime.now());
+        // user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
     }
 }
-

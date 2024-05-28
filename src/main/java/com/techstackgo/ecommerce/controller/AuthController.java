@@ -7,6 +7,7 @@ import com.techstackgo.ecommerce.dto.LoginRequest;
 import com.techstackgo.ecommerce.exception.UserException;
 import com.techstackgo.ecommerce.model.User;
 import com.techstackgo.ecommerce.repository.UserRepository;
+import com.techstackgo.ecommerce.service.UserService;
 import com.techstackgo.ecommerce.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,11 @@ public class AuthController {
     private UserRepository userRepository;
     private JwtProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
-    private UserServiceImpl userServiceImpl;
+    private UserService userServiceImpl;
 
     @Autowired
     public AuthController(UserRepository userRepository, JwtProvider jwtProvider, PasswordEncoder passwordEncoder,
-            UserServiceImpl userServiceImpl) {
+            UserService userServiceImpl) {
         this.userRepository = userRepository;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
@@ -62,7 +63,7 @@ public class AuthController {
         createdUser.setPassword(passwordEncoder.encode(passsword));
         createdUser.setFirstName(firstName);
         createdUser.setLastName(lastName);
-        createdUser.setCreatedAt(LocalDateTime.now());
+        // createdUser.setCreatedAt(LocalDateTime.now());
         User savedUser = userRepository.save(createdUser);
         // Authentication authentication = new
         // UsernamePasswordAuthenticationToken(savedUser.getEmail(),savedUser.getPassword());

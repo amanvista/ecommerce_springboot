@@ -2,6 +2,7 @@ package com.techstackgo.ecommerce.config;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.techstackgo.ecommerce.service.UserService;
 import com.techstackgo.ecommerce.service.UserServiceImpl;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtProvider jwtProvider;
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private UserService userServiceImpl;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 

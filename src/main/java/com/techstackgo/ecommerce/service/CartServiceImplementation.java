@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 @Service
-public class CartServiceImplementation implements CartService{
+public class CartServiceImplementation implements CartService {
     @Autowired
     private CartRepository cartRepository;
     @Autowired
@@ -24,6 +24,7 @@ public class CartServiceImplementation implements CartService{
     private ProductService productService;
     @Autowired
     private UserService userService;
+
     @Override
     public Cart createCart(User user) {
         Cart cart = new Cart();
@@ -33,7 +34,7 @@ public class CartServiceImplementation implements CartService{
 
     @Override
     public String addCartItem(Long userId, AddItemRequest req) throws ProductException, UserException {
-        Cart cart =  cartRepository.findByUserId(userId);
+        Cart cart = cartRepository.findByUserId(userId);
         User user = userService.findUserById(userId);
         // If the cart does not exist, create a new cart
         if (cart == null) {
@@ -51,13 +52,13 @@ public class CartServiceImplementation implements CartService{
 
         // Check if the cart item already exists
         CartItem isPresent = cartItemService.isCartItemExist(cart, product, userId);
-        if(isPresent==null){
+        if (isPresent == null) {
             CartItem cartItem = new CartItem();
             cartItem.setProduct(product);
             cartItem.setCart(cart);
             cartItem.setQuantity(req.getQuantity());
             cartItem.setUserId(userId);
-            int price = req.getQuantity()*product.getDiscountedPrice();
+            int price = req.getQuantity() * product.getDiscountedPrice();
             cartItem.setPrice(price);
             cartItem.setSize(req.getSize());
             CartItem createdCartItem = cartItemService.createCartItem(cartItem);
@@ -66,30 +67,31 @@ public class CartServiceImplementation implements CartService{
         }
         return "Item Add to Cart";
     }
+
     @Override
     public Cart findUserCart(Long userId) {
-        Cart cart=null;
-       try {
-           cart = cartRepository.findByUserId(userId);
-           return cart;
-//           int totalPrice = 0;
-//           int totalDiscountedPrice = 0;
-//           int totalItem = 0;
-//           if(cart!=null) {
-//               for (CartItem cartItem : cart.getCartItems()) {
-//                   totalPrice += cartItem.getPrice();
-//                   totalDiscountedPrice += cartItem.getDiscountedPrice();
-//                   totalItem += cartItem.getQuantity();
-//               }
-//
-//               cart.setTotalItem(totalItem);
-//               cart.setTotalDiscount(totalDiscountedPrice);
-//               cart.setFinalPrice(totalPrice - totalDiscountedPrice);
-//               cartRepository.save(cart);
+        Cart cart = null;
+        try {
+            cart = cartRepository.findByUserId(userId);
+            return cart;
+            // int totalPrice = 0;
+            // int totalDiscountedPrice = 0;
+            // int totalItem = 0;
+            // if(cart!=null) {
+            // for (CartItem cartItem : cart.getCartItems()) {
+            // totalPrice += cartItem.getPrice();
+            // totalDiscountedPrice += cartItem.getDiscountedPrice();
+            // totalItem += cartItem.getQuantity();
+            // }
+            //
+            // cart.setTotalItem(totalItem);
+            // cart.setTotalDiscount(totalDiscountedPrice);
+            // cart.setFinalPrice(totalPrice - totalDiscountedPrice);
+            // cartRepository.save(cart);
 
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         throw new RuntimeException("Cart is not found");
     }
 }
