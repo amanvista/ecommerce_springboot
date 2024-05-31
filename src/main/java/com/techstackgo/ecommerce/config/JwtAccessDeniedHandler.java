@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
-
     private final ObjectMapper objectMapper;
-
     @Override
     public void handle(
             HttpServletRequest request,

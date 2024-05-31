@@ -7,11 +7,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
-
 import java.util.HashSet;
 import java.util.Set;
-
-
 @Data
 @Validated
 public class CreateProductRequest {

@@ -61,9 +61,7 @@ public class UserServiceImpl implements UserService {
     public UserDto getDtoByUsername(String username) {
         return mapper.toDto(getByUsername(username));
     }
-
     public User findUserProfileByJwt(String jwt) throws UserException {
         return new User();
     }
-
 }

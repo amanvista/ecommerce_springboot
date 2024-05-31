@@ -47,10 +47,6 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
-
-    // private LocalDateTime createdAt;
-    List<GrantedAuthority> authorities;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
@@ -58,7 +54,6 @@ public class User extends BaseEntity {
     public User(String email, String password, List<GrantedAuthority> authorities) {
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
     }
 
 }

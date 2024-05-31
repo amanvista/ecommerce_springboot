@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -18,14 +19,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TokenService {
-
-    // @Value("${jwt-variables.KEY}")
+    @Value("${jwt-variables.KEY}")
     private String jwtKey;
-
-    // @Value("${jwt-variables.ISSUER}")
+    @Value("${jwt-variables.ISSUER}")
     private String jwtIssuer;
-
-    // @Value("${jwt-variables.EXPIRES_ACCESS_TOKEN_MINUTE}")
+    @Value("${jwt-variables.EXPIRES_ACCESS_TOKEN_MINUTE}")
     private long accessTokenExpiryDuration;
     // @Autowired
     private final UserService userService;

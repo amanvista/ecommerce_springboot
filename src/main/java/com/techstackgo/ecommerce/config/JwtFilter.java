@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
-    private final UserService userService;
+    private final UserDetailsServiceImpl userService;
 
     @Override
     protected void doFilterInternal(
@@ -42,16 +44,19 @@ public class JwtFilter extends OncePerRequestFilter {
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
+            System.out.println(header + "--------------");
             return;
         }
         jwt = header.substring(7);
         DecodedJWT decodedJWT;
         String username = null;
         try {
-            // decodedJWT = tokenService.verifyJWT(jwt);
-            // username = decodedJWT.getSubject();
+            decodedJWT = tokenService.verifyJWT(jwt);
+            username = decodedJWT.getSubject();
+            System.out.println(username);
         } catch (Exception e) {
             sendError(response, new Exception("token is not valid!"));
+            e.printStackTrace();
             return;
         }
 
@@ -59,6 +64,7 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        System.out.println(username + "--------__>");
         UserDetails userDetails = userService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
                 userDetails.getAuthorities());

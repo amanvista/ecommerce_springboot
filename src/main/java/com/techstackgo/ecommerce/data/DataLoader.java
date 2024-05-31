@@ -1,11 +1,14 @@
 package com.techstackgo.ecommerce.data;
 
 import com.techstackgo.ecommerce.model.Product;
+import com.techstackgo.ecommerce.model.RoleDto;
 import com.techstackgo.ecommerce.model.User;
 import com.techstackgo.ecommerce.repository.CartItemRepository;
 import com.techstackgo.ecommerce.repository.CartRepository;
 import com.techstackgo.ecommerce.repository.ProductRepository;
 import com.techstackgo.ecommerce.repository.UserRepository;
+import com.techstackgo.ecommerce.service.RoleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,16 +27,11 @@ public class DataLoader implements CommandLineRunner {
     private UserRepository userRepository;
 
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private CartItemRepository cartItemRepository;
+    private RoleService roleService;
 
     @Override
     public void run(String... args) throws Exception {
+
         // Create authorities
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -45,5 +43,16 @@ public class DataLoader implements CommandLineRunner {
         user.setRole("ADMIN");
         // user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
+        RoleDto adminRole = new RoleDto();
+        adminRole.setName("ADMIN");
+        adminRole = roleService.createRole(adminRole);
+
+        RoleDto userRole = new RoleDto();
+        userRole.setName("USER");
+        userRole = roleService.createRole(userRole);
+
+        RoleDto modRole = new RoleDto();
+        modRole.setName("MODERATOR");
+        modRole = roleService.createRole(modRole);
     }
 }
