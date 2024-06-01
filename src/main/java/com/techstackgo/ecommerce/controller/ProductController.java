@@ -23,7 +23,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PreAuthorize("hasAuthority('USER')")
+    // @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> findProductByCategory(
             // @RequestParam(required = false) String category,

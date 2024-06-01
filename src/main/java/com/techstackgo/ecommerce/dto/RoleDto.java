@@ -1,4 +1,6 @@
-package com.techstackgo.ecommerce.model;
+package com.techstackgo.ecommerce.dto;
+
+import com.techstackgo.ecommerce.model.BaseEntity;
 
 import lombok.Data;
 import lombok.Getter;

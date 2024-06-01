@@ -1,7 +1,7 @@
 package com.techstackgo.ecommerce.data;
 
+import com.techstackgo.ecommerce.dto.RoleDto;
 import com.techstackgo.ecommerce.model.Product;
-import com.techstackgo.ecommerce.model.RoleDto;
 import com.techstackgo.ecommerce.model.User;
 import com.techstackgo.ecommerce.repository.CartItemRepository;
 import com.techstackgo.ecommerce.repository.CartRepository;

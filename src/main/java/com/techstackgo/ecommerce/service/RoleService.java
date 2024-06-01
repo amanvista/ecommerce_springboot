@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.techstackgo.ecommerce.dto.RoleDto;
 import com.techstackgo.ecommerce.model.Role;
-import com.techstackgo.ecommerce.model.RoleDto;
 import com.techstackgo.ecommerce.repository.RoleRepository;
 
 import jakarta.persistence.EntityNotFoundException;
